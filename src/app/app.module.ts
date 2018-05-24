@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './elements/dashboard/dashboard.component';
+import { DayDetailComponent } from './elements/day-detail/day-detail.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
+    DayDetailComponent
   ],
   imports: [
     BrowserModule,
