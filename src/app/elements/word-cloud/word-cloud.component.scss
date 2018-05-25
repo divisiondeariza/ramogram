@@ -1,11 +1,31 @@
-.word {
-  width: 30%;
-  height: 30%;
-  line-height: 30%;
-  border-radius: 50%;
-  border: 1px solid red;
-  font-size: 30%;
-  // color: #fff;
-  text-align: center;
-  // background: #000
+#word-cloud{
+	max-width: 300px;
+	margin: auto;
+
+
+}
+
+circle{
+	fill:white;
+	stroke:red;
+	stroke-width:6;
+	// stroke-miterlimit:10;
+}
+
+#yellow{
+	circle{
+		stroke:#fcd116;
+	}
+}
+
+#blue{
+	circle{
+		stroke:#003893;
+	}
+}
+
+#red{
+	circle{
+		stroke:#ce1126;
+	}
 }

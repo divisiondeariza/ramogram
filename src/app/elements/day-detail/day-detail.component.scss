@@ -7,7 +7,7 @@
 	}
 
 	.red-border{
-		border-bottom: 2px solid red;
+		border-bottom: 2px solid #ce1126;
 		padding-left: 15px;
 		padding-right: 15px;
 	}
@@ -17,14 +17,26 @@
 		max-width: 150px;
 		margin: auto;
 		img{
-			position: relative;
- 			transform: translateY(-50%);
-			top:50%;
 			margin: auto;
 			width: 100%;
 			padding-left: 15px;
 			padding-right: 15px;
+			position: relative;
+ 			transform: translateY(-50%);
+ 			-webkit-transform: translateY(-50%);
+ 			-moz-transform: translateY(-50%);
+			top:50%;
 		 }
+	}
+
+	#feeling{ 
+		img{
+			// position: relative;
+ 		// 	transform: translateY(-50%);
+ 		// 	-webkit-transform: translateY(-50%);
+ 		// 	-moz-transform: translateY(-50%);
+			// top:50%;
+		}
 	}
 
 	[class^="col"], .row{
@@ -41,13 +53,13 @@
 			margin-top: 5px;
 			text-align: center;
 			@media (max-width: 768px) {	
-				font-size: 13px;
+				font-size: 12px;
 				margin-bottom: 5px;
 			}
-			@media (max-width: 520px) {	
-				font-size: 2.4vw;
-				margin-left: -4px;
-				margin-right: -4px;
+			@media (max-width: 576px) {	
+				font-size: 2.2vw;
+				margin-left: -10px;
+				margin-right: -10px;
 			}
 		}
 	}
