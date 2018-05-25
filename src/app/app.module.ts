@@ -6,13 +6,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './elements/dashboard/dashboard.component';
 import { DayDetailComponent } from './elements/day-detail/day-detail.component';
+import { WordCloudComponent } from './elements/word-cloud/word-cloud.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    DayDetailComponent
+    DayDetailComponent,
+    WordCloudComponent
   ],
   imports: [
     BrowserModule,
