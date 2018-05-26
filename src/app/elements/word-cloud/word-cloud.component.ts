@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-word-cloud',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./word-cloud.component.scss']
 })
 export class WordCloudComponent implements OnInit {
+  @Input() words: string[];
 
   constructor() { }
 

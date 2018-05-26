@@ -6,7 +6,7 @@ import { Input, Output, EventEmitter, DebugElement, Component } from '@angular/c
 
 @Component({selector: 'app-word-cloud', template: ''})
 class WordCloudStubCmp {
-
+  @Input() words: string[];
 }
 
 describe('DayDetailComponent', () => {
