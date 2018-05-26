@@ -1,6 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DayDetailComponent } from './day-detail.component';
+import { Input, Output, EventEmitter, DebugElement, Component } from '@angular/core';
+
+
+@Component({selector: 'app-word-cloud', template: ''})
+class WordCloudStubCmp {
+
+}
 
 describe('DayDetailComponent', () => {
   let component: DayDetailComponent;
@@ -8,7 +15,7 @@ describe('DayDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DayDetailComponent ]
+      declarations: [ DayDetailComponent, WordCloudStubCmp ]
     })
     .compileComponents();
   }));
