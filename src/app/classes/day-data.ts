@@ -3,7 +3,7 @@ export class DayData {
       sentiment: number;
       character: string;
       adjectives: string[];
-      match_data: MatchData;
+      match_data?: MatchData;
     }
 
 class MatchData {
