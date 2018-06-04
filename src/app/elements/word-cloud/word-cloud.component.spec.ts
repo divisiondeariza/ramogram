@@ -27,19 +27,16 @@ describe('WordCloudComponent', () => {
 
   it('should set first word correctly', ()=>{
     let firstWordEl =  fixture.debugElement.query(By.css('#yellow text'));
-    console.log(firstWordEl);
     expect(firstWordEl.nativeElement.innerHTML).toContain("first")
   } );
 
   it('should set second word correctly', ()=>{
     let secondWordEl =  fixture.debugElement.query(By.css('#blue text'));
-    console.log(secondWordEl);
     expect(secondWordEl.nativeElement.innerHTML).toContain("second")
   } );
 
   it('should set third word correctly', ()=>{
     let thirdWordEl =  fixture.debugElement.query(By.css('#red text'));
-    console.log(thirdWordEl);
     expect(thirdWordEl.nativeElement.innerHTML).toContain("third")
   } );
 

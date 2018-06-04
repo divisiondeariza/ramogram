@@ -1,11 +1,11 @@
 <div class="container">
 	<div class="row" id="data">
-		<div class="col-12">
-			<b>VIERNES</b> 27 de abril
+		<div class="col-12" id="date">
+			<b>{{weekday}}</b> {{date}}
 		</div>
 		<div class="col-3 col-sm-4" id="feeling">
 			<div class="img-container">
-				<img src="assets/img/emojis/very-happy.png"/>
+				<img [src]='emojiUrl'/>
 			</div>
 		</div>
 		<div class="col-4 col-sm-4" id="player">

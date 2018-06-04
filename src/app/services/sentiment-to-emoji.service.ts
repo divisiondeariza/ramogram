@@ -6,6 +6,7 @@ export class SentimentToEmojiService {
   constructor() { }
 
   public getEmoji(sentiment){
+    
   	if(sentiment < -0.6)
   		return "very-sad.png";
   	if(sentiment < -0.2)
