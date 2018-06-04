@@ -100,6 +100,11 @@ describe('DayDetailComponent', () => {
       fixture.detectChanges();
     });
 
+    it("should set title correctly", ()=>{
+      let titleEl = fixture.debugElement.query(By.css('#match h2'));
+      expect(titleEl.nativeElement.innerText).toEqual(dayData.match_data.title);
+    });
+
   });
 
 });
