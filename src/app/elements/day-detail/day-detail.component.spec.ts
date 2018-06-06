@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 
 import { DayDetailComponent } from './day-detail.component';
 import { DayData } from '../../classes/day-data'
+import { MatchData } from '../../classes/match-data'
 import { SentimentToEmojiService } from '../../services/sentiment-to-emoji.service'
 
 
@@ -15,6 +16,12 @@ class WordCloudStubCmp {
   @Input() words: string[];
 }
 
+@Component({selector: 'app-match-chart', template: ''})
+class MatchChartStubCmp {
+  @Input() matchData: MatchData;
+}
+
+
 describe('DayDetailComponent', () => {
   let component: DayDetailComponent;
   let fixture: ComponentFixture<DayDetailComponent>;
@@ -25,8 +32,8 @@ describe('DayDetailComponent', () => {
     const sentimentToEmojiService = jasmine.createSpyObj('SentimentToEmojiService', ['getEmoji']);
     getEmojiSpy = sentimentToEmojiService.getEmoji.and.returnValue("some-emoji.png")
     TestBed.configureTestingModule({
-      declarations: [ DayDetailComponent, WordCloudStubCmp ],
-      providers: [ {provide: SentimentToEmojiService, useValue: sentimentToEmojiService} ]
+      declarations: [ DayDetailComponent, WordCloudStubCmp, MatchChartStubCmp ],
+      providers: [ {provide: SentimentToEmojiService, useValue: sentimentToEmojiService}]      
     })
     .compileComponents();
   }));
@@ -71,6 +78,11 @@ describe('DayDetailComponent', () => {
       expect(dateEl.nativeElement.innerText).toEqual("JUEVES 14 de junio");
       expect(weekdayEl.nativeElement.innerText).toEqual("JUEVES");
     });
+
+    it("should not render match element", ()=>{
+      let matchEl = fixture.debugElement.query(By.css('#match'));
+      expect(matchEl).toBeFalsy();
+    })
   });
 
   describe("match past", () =>{
@@ -103,6 +115,11 @@ describe('DayDetailComponent', () => {
     it("should set title correctly", ()=>{
       let titleEl = fixture.debugElement.query(By.css('#match h2'));
       expect(titleEl.nativeElement.innerText).toEqual(dayData.match_data.title);
+    });
+
+    it('should set graph correctly', ()=>{
+      let MatchGraphEl =  fixture.debugElement.query(By.css('app-match-chart'));
+      expect(MatchGraphEl.componentInstance.matchData).toEqual(dayData.match_data);
     });
 
   });

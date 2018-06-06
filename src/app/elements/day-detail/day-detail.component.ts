@@ -24,16 +24,13 @@ export class DayDetailComponent implements OnInit {
   	this.date = moment(this.data.date).tz('UTC').format("DD [de] MMMM");
   	this.weekday = moment(this.data.date).tz('UTC').format("dddd").toUpperCase();
   	this.emojiUrl = this.getEmojiUrl();
+
+
   }
 
   private getEmojiUrl(){
   	let emojiFilename = this.sentimentToEmojiService.getEmoji(this.data.sentiment);
   	return 'assets/img/emojis/' + emojiFilename;
   }
-
-  // private getDate(){
-  // 	let weekday
-  // 	return moment(this.data.date).tz('UTC').format("dddd DD [de] MMMM");
-  // }
 
 }
