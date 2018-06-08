@@ -12,113 +12,67 @@ import * as ChartAnnotation from'../../../../node_modules/chartjs-plugin-annotat
 export class MatchChartComponent implements OnInit {
   @Input() matchData: MatchData;
   
-  // lineChart
-  public lineChartData:Array<any> = [
-    [65, 59, 80, 81, 56, 55, 40],
-    [28, 48, 40, 19, 86, 27, 90]
-  ];
-  public lineChartLabels:Array<any> = ['Enero', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChartType:string = 'line';
-  public pieChartType:string = 'pie';
- 
-  // Pie
-  public pieChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales'];
-  public pieChartData:number[] = [300, 500, 100];
+  single: any[];
+  highlights
 
-  public lineChartOptions = {
-  	plugins: {
-            datalabels: {
-                formatter: function(value, context) {
-                	if(context.dataIndex % 2 == 1)
-                		return value
-                    return '';
-                }
+  multi: any[] = [
+  {
+    "name": "Germany",
+    "series": [
+      {
+        "name": "2010",
+        "value": 7300000
+      },
+      {
+        "name": "2011",
+        "value": 8940000
+      },
+      {
+        "name": "2012",
+        "value": 7300000
+      },
+      {
+        "name": "2013",
+        "value": 8940000
+      },
 
-  		}
-	  },
-	annotation: {
-        drawTime: 'afterDatasetsDraw', // (default)
- 
-        // Mouse events to enable on each annotation.
-        // Should be an array of one or more browser-supported mouse events
-        // See https://developer.mozilla.org/en-US/docs/Web/Events
-        events: ['click'],
- 
-        // Double-click speed in ms used to distinguish single-clicks from 
-        // double-clicks whenever you need to capture both. When listening for
-        // both click and dblclick, click events will be delayed by this
-        // amount.
-        dblClickSpeed: 350, // ms (default)
-	   annotations: [{
-	      type: 'line',
-	      id: 'hLine',
-	      mode: 'horizontal',
-	      scaleID: 'y-axis-0',
-	      value: 3,  // data-value at which the line is drawn
-	      borderWidth: 2,
-	      borderColor: 'black'
-	   },
-          {
-            drawTime: "afterDatasetsDraw",
-            id: "hline",
-            type: "line",
-            mode: "horizontal",
-            scaleID: "y-axis-0",
-            value: 50,
-            borderColor: "black",
-            borderWidth: 5,
-            label: {
-              backgroundColor: "red",
-              content: "Test Label",
-              enabled: true
-            },
-            onClick: function(e) {
-              // The annotation is is bound to the `this` variable
-              console.log("Annotation", e.type, this);
-            }
-          },
-			{
-	            drawTime: 'afterDraw', // overrides annotation.drawTime if set
-	            id: 'a-line-1', // optional
-	            type: 'line',
-	            mode: 'horizontal',
-	            scaleID: 'y-axis-0',
-	            value: '25',
-	            borderColor: 'red',
-	            borderWidth: 2,
-	 
-	            // Fires when the user clicks this annotation on the chart
-	            // (be sure to enable the event in the events array below).
-	            onClick: function(e) {
-	                // `this` is bound to the annotation element
-	            }
-       	 }
-		]
-	}
+    ]
+  }];
+
+	activeEntries:any[] = [];
+	onActivateAndDeactivate() { // keep the highlights on all the time
+	this.activeEntries = [
+		{name: "2011", value: 8940000, series: "Germany"}
+	  ];
+	  console.log("meh");
 	}
 
+  // options
+  showXAxis = true;
+  showYAxis = false;
+  gradient = false;
+  showLegend = false;
+  showXAxisLabel = true;
+  xAxisLabel = 'Country';
+  showYAxisLabel = true;
+  yAxisLabel = 'Population';
+
+  colorScheme = {
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+  };
+
+  // line, area
+  autoScale = true;
   
- 
-  public randomizeType():void {
-    this.lineChartType = this.lineChartType === 'line' ? 'bar' : 'line';
-    this.pieChartType = this.pieChartType === 'doughnut' ? 'pie' : 'doughnut';
+  constructor() {
   }
- 
-  public chartClicked(e:any):void {
-    console.log(e);
+  
+  onSelect(event) {
+  	this.activeEntries.push({name: "2011", value: 8940000, series: "Germany"});
+  	console.log(this.activeEntries)
   }
- 
-  public chartHovered(e:any):void {
-    console.log(e);
-  }
-
-
-
-  constructor() { } 
 
   ngOnInit() {
-  	Chart.pluginService.register(ChartDatalabels);
-  	Chart.pluginService.register(ChartAnnotation);
   }
 
 }

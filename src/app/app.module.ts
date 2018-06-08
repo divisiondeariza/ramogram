@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ChartsModule } from 'ng2-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -24,7 +26,9 @@ import { MatchChartComponent } from './elements/match-chart/match-chart.componen
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ChartsModule
+    ChartsModule,
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [SentimentToEmojiService],
   bootstrap: [AppComponent]

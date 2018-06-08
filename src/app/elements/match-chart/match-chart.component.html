@@ -1,12 +1,28 @@
 <div class="row">
-	<div class="col-12">
-		<canvas baseChart
-	            [data]="lineChartData"
-	            [labels]="lineChartLabels"
-	            [options]="lineChartOptions"
-	            [chartType]="lineChartType"
-	            (chartHover)="chartHovered($event)"
-	            (chartClick)="chartClicked($event)">        
-	    </canvas>
-	</div>
+	<div class="col-12" id="chart-container">
+	    <ngx-charts-line-chart
+			[scheme]="colorScheme"
+			[results]="multi"
+			[gradient]="gradient"
+			[xAxis]="showXAxis"
+			[yAxis]="showYAxis"
+			[legend]="showLegend"
+			[showXAxisLabel]="showXAxisLabel"
+			[showYAxisLabel]="showYAxisLabel"
+			[xAxisLabel]="xAxisLabel"
+			[yAxisLabel]="yAxisLabel"
+			[autoScale]="autoScale"
+			[activeEntries]="[multi[0].series[1]]"
+			(select)="onSelect($event)"
+			[activeEntries] = "activeEntries"
+			(deactivate) = "onActivateAndDeactivate()"
+			(active) = "onActivateAndDeactivate()"
+		      >
+
+
+		    <ng-template #tooltipTemplate let-model="model">
+		          bla bla bla
+		    </ng-template>
+
+	    </ngx-charts-line-chart>
 </div>
