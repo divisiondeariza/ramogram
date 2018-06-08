@@ -1,5 +1,13 @@
 <div class="row">
 	<div class="col-12" id="chart-container">
+
+	      <ngx-charts-sparkline
+	        class="chart-container"
+	        [scheme]="'flame'"
+	        [results]="multi"
+	        [animations]="true"
+	        [curve]="curve">
+	      </ngx-charts-sparkline>
 	    <ngx-charts-line-chart
 			[scheme]="colorScheme"
 			[results]="multi"
@@ -24,5 +32,27 @@
 		          bla bla bla
 		    </ng-template>
 
+
+
+
+
 	    </ngx-charts-line-chart>
+	        <svg:g *ngFor="let series of multi">
+	          <svg:g ngx-charts-bubble-series
+	            [xScale]="xScale"
+	            [yScale]="yScale"
+	            [rScale]="rScale"
+	            [xScaleType]="xScaleType"
+	            [yScaleType]="yScaleType"
+	            [colors]="colors"
+	            [data]="series"
+	            [activeEntries]="activeEntries"
+	            (select)="onClick($event, series)"
+	            (activate)="onActivate($event)"
+	            (deactivate)="onDeactivate($event)" >
+	        </svg:g>
+	        
+	      </svg:g>
+
+
 </div>

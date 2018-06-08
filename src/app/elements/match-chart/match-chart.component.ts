@@ -3,6 +3,12 @@ import { MatchData } from '../../classes/match-data'
 import * as Chart from '../../../../node_modules/chart.js/dist/Chart.js';
 import * as ChartDatalabels from'../../../../node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js';
 import * as ChartAnnotation from'../../../../node_modules/chartjs-plugin-annotation/chartjs-plugin-annotation.js';
+import * as shape from 'd3-shape';
+import {
+  NgxChartsModule, BaseChartComponent, LineComponent, LineSeriesComponent,
+  calculateViewDimensions, ViewDimensions, ColorHelper, BubbleChartModule
+ } from '@swimlane/ngx-charts';
+
 
 @Component({
   selector: 'app-match-chart',
@@ -15,29 +21,78 @@ export class MatchChartComponent implements OnInit {
   single: any[];
   highlights
 
-  multi: any[] = [
+  curve = shape.curveLinear;
+  multi: any[] = 
+[
   {
     "name": "Germany",
     "series": [
       {
         "name": "2010",
-        "value": 7300000
+        "value": 40632
       },
       {
-        "name": "2011",
-        "value": 8940000
+        "name": "2000",
+        "value": 36953
       },
       {
-        "name": "2012",
-        "value": 7300000
-      },
-      {
-        "name": "2013",
-        "value": 8940000
-      },
-
+        "name": "1990",
+        "value": 31476
+      }
     ]
-  }];
+  },
+  {
+    "name": "United States",
+    "series": [
+      {
+        "name": "2010",
+        "value": 49737
+      },
+      {
+        "name": "2000",
+        "value": 45986
+      },
+      {
+        "name": "1990",
+        "value": 37060
+      }
+    ]
+  },
+  {
+    "name": "France",
+    "series": [
+      {
+        "name": "2010",
+        "value": 36745
+      },
+      {
+        "name": "2000",
+        "value": 34774
+      },
+      {
+        "name": "1990",
+        "value": 29476
+      }
+    ]
+  },
+  {
+    "name": "United Kingdom",
+    "series": [
+      {
+        "name": "2010",
+        "value": 36240
+      },
+      {
+        "name": "2000",
+        "value": 32543
+      },
+      {
+        "name": "1990",
+        "value": 26424
+      }
+    ]
+  }
+];
 
 	activeEntries:any[] = [];
 	onActivateAndDeactivate() { // keep the highlights on all the time
@@ -74,5 +129,10 @@ export class MatchChartComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
+
+
+
 
 }

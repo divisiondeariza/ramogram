@@ -13,6 +13,7 @@ import { DashboardComponent } from './elements/dashboard/dashboard.component';
 import { DayDetailComponent } from './elements/day-detail/day-detail.component';
 import { WordCloudComponent } from './elements/word-cloud/word-cloud.component';
 import { MatchChartComponent } from './elements/match-chart/match-chart.component';
+import { AnnotableLineChartComponent } from './elements/annotable-line-chart/annotable-line-chart.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { MatchChartComponent } from './elements/match-chart/match-chart.componen
     DashboardComponent,
     DayDetailComponent,
     WordCloudComponent,
-    MatchChartComponent
+    MatchChartComponent,
+    AnnotableLineChartComponent
   ],
   imports: [
     BrowserModule,
