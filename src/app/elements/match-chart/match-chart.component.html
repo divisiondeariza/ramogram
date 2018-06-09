@@ -2,13 +2,25 @@
 	<div class="col-12" id="chart-container">
 
 	      <ngx-charts-sparkline
-	        class="chart-container"
-	        [scheme]="'flame'"
-	        [results]="multi"
-	        [animations]="true"
-	        [curve]="curve">
+			[scheme]="colorScheme"
+			[results]="multi"
+			[points]="multi2"
+			[gradient]="gradient"
+			[xAxis]="showXAxis"
+			[yAxis]="showYAxis"
+			[legend]="showLegend"
+			[showXAxisLabel]="showXAxisLabel"
+			[showYAxisLabel]="showYAxisLabel"
+			[xAxisLabel]="xAxisLabel"
+			[yAxisLabel]="yAxisLabel"
+			[autoScale]="autoScale"
+			[activeEntries]="[multi[0].series[1]]"
+			(select)="onSelect($event)"
+			[activeEntries] = "activeEntries"
+			(deactivate) = "onActivateAndDeactivate()"
+			(active) = "onActivateAndDeactivate()">
 	      </ngx-charts-sparkline>
-	    <ngx-charts-line-chart
+<!-- 	    <ngx-charts-line-chart
 			[scheme]="colorScheme"
 			[results]="multi"
 			[gradient]="gradient"
@@ -53,6 +65,6 @@
 	        </svg:g>
 	        
 	      </svg:g>
-
+ -->
 
 </div>

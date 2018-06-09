@@ -17,242 +17,89 @@
 
 
 
+
 import {
   Component,
   Input,
+  Output,
+  EventEmitter,
   ViewEncapsulation,
-  ChangeDetectionStrategy
+  HostListener,
+  ChangeDetectionStrategy,
+  ContentChild,
+  TemplateRef
 } from '@angular/core';
+import {
+  trigger,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 import { scaleLinear, scaleTime, scalePoint } from 'd3-scale';
 import { curveLinear } from 'd3-shape';
 
-import { calculateViewDimensions, ViewDimensions, BaseChartComponent, ColorHelper } from '@swimlane/ngx-charts';
+import { calculateViewDimensions, ViewDimensions } from '@swimlane/ngx-charts/release/common/view-dimensions.helper';
+import { ColorHelper } from '@swimlane/ngx-charts/release/common/color.helper';
+import { BaseChartComponent } from '@swimlane/ngx-charts/release/common/base-chart.component';
+import { id } from '@swimlane/ngx-charts/release/utils/id';
 import { getUniqueXDomainValues } from '@swimlane/ngx-charts/release/common/domain.helper';
+import { LineChartComponent } from '@swimlane/ngx-charts/release/line-chart';
 
 @Component({
   selector: 'ngx-charts-sparkline',
-  template: `
-    <ngx-charts-chart
-      [view]="[width, height]"
-      [showLegend]="false"
-      [animations]="animations">
-      <svg:g [attr.transform]="transform" class="line-chart chart">
-        <svg:g>
-          <svg:g *ngFor="let series of results; trackBy:trackBy">
-            <svg:g ngx-charts-line-series
-              [xScale]="xScale"
-              [yScale]="yScale"
-              [colors]="colors"
-              [data]="series"
-              [activeEntries]="activeEntries"
-              [scaleType]="scaleType"
-              [curve]="curve"
-              [rangeFillOpacity]="rangeFillOpacity"
-              [animations]="animations"
-            />
-          </svg:g>
-        </svg:g>
-          <svg:g *ngFor="let series of results">
-            <svg:g ngx-charts-bubble-series
-              [xScale]="xScale"
-              [yScale]="yScale"
-              [rScale]="'1'"
-              [xScaleType]="xScaleType"
-              [yScaleType]="yScaleType"
-              [colors]="colors"
-              [data]="series"
-              [activeEntries]="activeEntries"
-              (select)="onClick($event, series)"
-              (activate)="onActivate($event)"
-              (deactivate)="onDeactivate($event)" >
-          </svg:g>
-    <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />        
-        </svg:g>
-      </svg:g>
-    </ngx-charts-chart>
-  `,
-  styleUrls: ['./annotable-line-chart.component.scss'],
+  templateUrl: './annotable-line-chart.component.html',
+  styleUrls: ['base-chart.component.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('animationState', [
+      transition(':leave', [
+        style({
+          opacity: 1,
+        }),
+        animate(500, style({
+          opacity: 0
+        }))
+      ])
+    ])
+  ]
 })
-export class AnnotableLineChartComponent extends BaseChartComponent {
+export class AnnotableLineChartComponent extends LineChartComponent {
+ @Input() points: any[];
+ rDomain = [1,1];
+ rScale = this.getRScale(this.rDomain, [3, 30]);
 
-  @Input() autoScale = false;
-  @Input() curve: any = curveLinear;
-  @Input() schemeType: string = 'linear';
-  @Input() valueDomain: number[];
-  @Input() animations: boolean = true;
-
-  dims: ViewDimensions;
-  xSet: any;
-  xDomain: any;
-  yDomain: any;
-  seriesDomain: any;
-  yScale: any;
-  xScale: any;
-  colors: ColorHelper;
-  scaleType: string;
-  transform: string;
-  margin = [0, 0, 0, 0];
-
-  update(): void {
-    super.update();
-
-    this.dims = calculateViewDimensions({
-      width: this.width,
-      height: this.height,
-      margins: this.margin,
-      showXAxis: false,
-      showYAxis: false,
-      xAxisHeight: 0,
-      yAxisWidth: 0,
-      showXLabel: false,
-      showYLabel: false,
-      showLegend: false,
-      legendType: this.schemeType
-    });
-
-    this.xDomain = this.getXDomain();
-
-    this.yDomain = this.getYDomain();
-    this.seriesDomain = this.getSeriesDomain();
-
-    this.xScale = this.getXScale(this.xDomain, this.dims.width);
-    this.yScale = this.getYScale(this.yDomain, this.dims.height);
-
-    this.setColors();
-    this.transform = `translate(${ this.dims.xOffset } , ${ this.margin[0] })`;
-  }
-
-  getXDomain(): any[] {
-    let values = getUniqueXDomainValues(this.results);
-
-    this.scaleType = this.getScaleType(values);
-    let domain = [];
-
-    if (this.scaleType === 'time') {
-      const min = Math.min(...values);
-      const max = Math.max(...values);
-      domain = [min, max];
-    } else if (this.scaleType === 'linear') {
-      values = values.map(v => Number(v));
-      const min = Math.min(...values);
-      const max = Math.max(...values);
-      domain = [min, max];
-    } else {
-      domain = values;
-    }
-
-    this.xSet = values;
-    return domain;
-  }
-
-  getYDomain(): any[] {
-    if (this.valueDomain) {
-      return this.valueDomain;
-    }
-
-    const domain = [];
-
-    for (const results of this.results) {
-      for (const d of results.series) {
-        if (domain.indexOf(d.value) < 0) {
-          domain.push(d.value);
-        }
-        if (d.min !== undefined) {
-          if (domain.indexOf(d.min) < 0) {
-            domain.push(d.min);
-          }
-        }
-        if (d.max !== undefined) {
-          if (domain.indexOf(d.max) < 0) {
-            domain.push(d.max);
-          }
-        }
-      }
-    }
-
-    let min = Math.min(...domain);
-    const max = Math.max(...domain);
-    if (!this.autoScale) {
-      min = Math.min(0, min);
-    }
-
-    return [min, max];
-  }
-
-  getSeriesDomain(): any[] {
-    return this.results.map(d => d.name);
-  }
-
-  getXScale(domain, width): any {
-    let scale;
-
-    if (this.scaleType === 'time') {
-      scale = scaleTime()
-        .range([0, width])
-        .domain(domain);
-    } else if (this.scaleType === 'linear') {
-      scale = scaleLinear()
-        .range([0, width])
-        .domain(domain);
-    } else if (this.scaleType === 'ordinal') {
-      scale = scalePoint()
-        .range([0, width])
-        .padding(0.1)
-        .domain(domain);
-    }
-
-    return scale;
-  }
-
-  getYScale(domain, height): any {
+  getRScale(domain, range): any {
     const scale = scaleLinear()
-      .range([height, 0])
+      .range(range)
       .domain(domain);
 
-    return scale;
+    return this.roundDomains ? scale.nice() : scale;
   }
 
-  getScaleType(values): string {
-    let date = true;
-    let num = true;
+  onActivate(item) {
+    this.deactivateAll();
 
-    for (const value of values) {
-      if (!this.isDate(value)) {
-        date = false;
-      }
-
-      if (typeof value !== 'number') {
-        num = false;
-      }
+    const idx = this.activeEntries.findIndex(d => {
+      return d.name === item.name && d.value === item.value;
+    });
+    if (idx > -1) {
+      return;
     }
 
-    if (date) return 'time';
-    if (num) return 'linear';
-    return 'ordinal';
+    this.activeEntries = [item];
+    this.activate.emit({ value: item, entries: this.activeEntries });
   }
 
-  isDate(value): boolean {
-    if (value instanceof Date) {
-      return true;
-    }
+  @HostListener('mouseleave')
+  hideCircles(): void {
 
-    return false;
+    this.hoveredVertical = null;
+    this.deactivateAll();
   }
+  onClickTuple($event, series, serie){
+    console.log(serie)
 
-  trackBy(index, item): string {
-    return item.name;
-  }
-
-  setColors(): void {
-    let domain;
-    if (this.schemeType === 'ordinal') {
-      domain = this.seriesDomain;
-    } else {
-      domain = this.yDomain;
-    }
-
-    this.colors = new ColorHelper(this.scheme, this.schemeType, domain, this.customColors);
   }
 }
+

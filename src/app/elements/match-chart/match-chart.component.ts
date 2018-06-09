@@ -29,7 +29,7 @@ export class MatchChartComponent implements OnInit {
     "series": [
       {
         "name": "2010",
-        "value": 40632
+        "value": 40633
       },
       {
         "name": "2000",
@@ -94,12 +94,48 @@ export class MatchChartComponent implements OnInit {
   }
 ];
 
+  multi2: any[] = 
+[
+  {
+    "name": "Germany",
+    "series": [
+      {
+        "name": "2010",
+        "value": 40632
+      },
+      {
+        "name": "2000",
+        "value": 36953
+      },
+      {
+        "name": "1990",
+        "value": 35476
+      }
+    ]
+  },
+  {
+    "name": "United States",
+    "series": [
+      {
+        "name": "2010",
+        "value": 49737
+      },
+      {
+        "name": "2000",
+        "value": 45986
+      },
+      {
+        "name": "1995",
+        "value": 37060
+      }
+    ]
+  },
+
+];
+
 	activeEntries:any[] = [];
 	onActivateAndDeactivate() { // keep the highlights on all the time
-	this.activeEntries = [
-		{name: "2011", value: 8940000, series: "Germany"}
-	  ];
-	  console.log("meh");
+	  console.log(this.activeEntries);
 	}
 
   // options
