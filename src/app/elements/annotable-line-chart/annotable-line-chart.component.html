@@ -85,22 +85,21 @@
               />
             </svg:g>
 
-            <svg:g *ngFor="let series of points">
-              <svg:g *ngFor="let serie of series.series" ngx-charts-circle-series
+
+              <svg:g *ngFor="let serie of points[1].series" app-annotations
                 [xScale]="xScale"
                 [yScale]="yScale"
                 [colors]="colors"
-                [data]="series"
+                [data]="points[1]"
                 [scaleType]="scaleType"
                 [visibleValue]="serie.name"
-                [activeEntries]="points"
+                [activeEntries]="activeEntries"
                 [tooltipDisabled]="tooltipDisabled"
                 [tooltipTemplate]="tooltipTemplate"
                 (select)="onClickTuple($event, series, serie)"
               />
             </svg:g>
 
-          </svg:g>
         </svg:g>
       </svg:g>
       <svg:g ngx-charts-timeline

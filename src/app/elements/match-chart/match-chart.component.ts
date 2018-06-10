@@ -97,7 +97,7 @@ export class MatchChartComponent implements OnInit {
   multi2: any[] = 
 [
   {
-    "name": "Germany",
+    "name": "German",
     "series": [
       {
         "name": "2010",
@@ -114,7 +114,7 @@ export class MatchChartComponent implements OnInit {
     ]
   },
   {
-    "name": "United States",
+    "name": "United State",
     "series": [
       {
         "name": "2010",
@@ -122,10 +122,10 @@ export class MatchChartComponent implements OnInit {
       },
       {
         "name": "2000",
-        "value": 45986
+        "value": 48986
       },
       {
-        "name": "1995",
+        "name": "1990",
         "value": 37060
       }
     ]
