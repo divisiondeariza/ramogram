@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ChartsModule } from 'ng2-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { HttpClientModule }    from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -32,7 +33,8 @@ import { AnnotationsComponent } from './elements/annotations/annotations.compone
     AppRoutingModule,
     ChartsModule,
     NgxChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,    
+    HttpClientModule
   ],
   providers: [SentimentToEmojiService],
   bootstrap: [AppComponent]

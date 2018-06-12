@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DayData } from '../../classes/day-data'
 import { SentimentToEmojiService } from '../../services/sentiment-to-emoji.service'
+import { DataService } from '../../services/data.service'
 import * as moment from 'moment-timezone';
 
 @Component({
@@ -10,10 +11,13 @@ import * as moment from 'moment-timezone';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private sentimentToEmojiService:SentimentToEmojiService) { }
+  constructor(
+    private sentimentToEmojiService:SentimentToEmojiService,
+    private dataService:DataService      ) { }
 
   dayData:DayData; // TEMPORARY
   data:DayData[]; // TEMPORARY
+  data2:DayData[]
   
   getWeekday(date){
     return moment(date).tz('UTC').format("dddd").toUpperCase();
@@ -106,8 +110,11 @@ export class DashboardComponent implements OnInit {
       ]
     }
   ]
-}
 
-  }
+  // this.dataService.getData()
+  //   .subscribe(data => this.data = data);
+  // }
+
+}
 
 
