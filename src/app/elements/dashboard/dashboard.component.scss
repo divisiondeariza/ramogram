@@ -52,6 +52,17 @@
 	}
 }
 
+.day{
+	margin: 10px -15px;
+	div{
+		text-align: center;
+	}
+	img{
+		width: 50%;
+		max-width: 28px;
+	}
+}
+
 :host{
 	width: 100%;
 }

@@ -8,6 +8,7 @@ import {
   NgxChartsModule, BaseChartComponent, LineComponent, LineSeriesComponent,
   calculateViewDimensions, ViewDimensions, ColorHelper, BubbleChartModule
  } from '@swimlane/ngx-charts';
+import { SentimentToEmojiService } from '../../services/sentiment-to-emoji.service'
 
 
 @Component({
@@ -22,116 +23,8 @@ export class MatchChartComponent implements OnInit {
   highlights
 
   curve = shape.curveLinear;
-  multi: any[] = 
-[
-  {
-    "name": "Germany",
-    "series": [
-      {
-        "name": "2010",
-        "value": 40633
-      },
-      {
-        "name": "2000",
-        "value": 36953
-      },
-      {
-        "name": "1990",
-        "value": 31476
-      }
-    ]
-  },
-  {
-    "name": "United States",
-    "series": [
-      {
-        "name": "2010",
-        "value": 49737
-      },
-      {
-        "name": "2000",
-        "value": 45986
-      },
-      {
-        "name": "1990",
-        "value": 37060
-      }
-    ]
-  },
-  {
-    "name": "France",
-    "series": [
-      {
-        "name": "2010",
-        "value": 36745
-      },
-      {
-        "name": "2000",
-        "value": 34774
-      },
-      {
-        "name": "1990",
-        "value": 29476
-      }
-    ]
-  },
-  {
-    "name": "United Kingdom",
-    "series": [
-      {
-        "name": "2010",
-        "value": 36240
-      },
-      {
-        "name": "2000",
-        "value": 32543
-      },
-      {
-        "name": "1990",
-        "value": 26424
-      }
-    ]
-  }
-];
-
-  multi2: any[] = 
-[
-  {
-    "name": "German",
-    "series": [
-      {
-        "name": "2010",
-        "value": 40632
-      },
-      {
-        "name": "2000",
-        "value": 36953
-      },
-      {
-        "name": "1990",
-        "value": 35476
-      }
-    ]
-  },
-  {
-    "name": "United State",
-    "series": [
-      {
-        "name": "2010",
-        "value": 49737
-      },
-      {
-        "name": "2000",
-        "value": 48986
-      },
-      {
-        "name": "1990",
-        "value": 37060
-      }
-    ]
-  },
-
-];
+  data: any[];
+  annotations: any[];
 
 	activeEntries:any[] = [];
 	onActivateAndDeactivate() { // keep the highlights on all the time
@@ -155,7 +48,7 @@ export class MatchChartComponent implements OnInit {
   // line, area
   autoScale = true;
   
-  constructor() {
+  constructor(private sentimentToEmojiService:SentimentToEmojiService) {
   }
   
   onSelect(event) {
@@ -164,9 +57,19 @@ export class MatchChartComponent implements OnInit {
   }
 
   ngOnInit() {
+    let series = this.matchData.sentiment.map((val, i) => {return {"name": this.matchData.times[i], "value": val}})
+    let annotations = series.map((val) =>{ return {"name": val.name, "value": val.value, "emoji": this.getEmojiUrl(val.value)} })
+                            .filter(val => this.matchData.key_times.first_half == val.name || this.matchData.key_times.second_half == val.name )
+    this.data = [{"name":"", series: series}]
+    this.annotations = [{"name":"", series: annotations}]
+
+
   }
 
-
+  private getEmojiUrl(sentiment){
+    let emojiFilename = this.sentimentToEmojiService.getEmoji(sentiment);
+    return 'assets/img/emojis/' + emojiFilename;
+  }
 
 
 

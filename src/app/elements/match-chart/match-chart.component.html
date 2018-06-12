@@ -3,8 +3,8 @@
 
 	      <ngx-charts-sparkline
 			[scheme]="colorScheme"
-			[results]="multi"
-			[points]="multi2"
+			[results]="data"
+			[annotations]="annotations"
 			[gradient]="gradient"
 			[xAxis]="showXAxis"
 			[yAxis]="showYAxis"
@@ -14,57 +14,10 @@
 			[xAxisLabel]="xAxisLabel"
 			[yAxisLabel]="yAxisLabel"
 			[autoScale]="autoScale"
-			[activeEntries]="[multi[0].series[1]]"
+			[activeEntries]="activeEntries"
 			(select)="onSelect($event)"
 			[activeEntries] = "activeEntries"
 			(deactivate) = "onActivateAndDeactivate()"
 			(active) = "onActivateAndDeactivate()">
 	      </ngx-charts-sparkline>
-<!-- 	    <ngx-charts-line-chart
-			[scheme]="colorScheme"
-			[results]="multi"
-			[gradient]="gradient"
-			[xAxis]="showXAxis"
-			[yAxis]="showYAxis"
-			[legend]="showLegend"
-			[showXAxisLabel]="showXAxisLabel"
-			[showYAxisLabel]="showYAxisLabel"
-			[xAxisLabel]="xAxisLabel"
-			[yAxisLabel]="yAxisLabel"
-			[autoScale]="autoScale"
-			[activeEntries]="[multi[0].series[1]]"
-			(select)="onSelect($event)"
-			[activeEntries] = "activeEntries"
-			(deactivate) = "onActivateAndDeactivate()"
-			(active) = "onActivateAndDeactivate()"
-		      >
-
-
-		    <ng-template #tooltipTemplate let-model="model">
-		          bla bla bla
-		    </ng-template>
-
-
-
-
-
-	    </ngx-charts-line-chart>
-	        <svg:g *ngFor="let series of multi">
-	          <svg:g ngx-charts-bubble-series
-	            [xScale]="xScale"
-	            [yScale]="yScale"
-	            [rScale]="rScale"
-	            [xScaleType]="xScaleType"
-	            [yScaleType]="yScaleType"
-	            [colors]="colors"
-	            [data]="series"
-	            [activeEntries]="activeEntries"
-	            (select)="onClick($event, series)"
-	            (activate)="onActivate($event)"
-	            (deactivate)="onDeactivate($event)" >
-	        </svg:g>
-	        
-	      </svg:g>
- -->
-
 </div>

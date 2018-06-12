@@ -65,7 +65,7 @@ import { LineChartComponent } from '@swimlane/ngx-charts/release/line-chart';
   ]
 })
 export class AnnotableLineChartComponent extends LineChartComponent {
- @Input() points: any[];
+ @Input() annotations: any[];
  rDomain = [1,1];
  rScale = this.getRScale(this.rDomain, [3, 30]);
 
@@ -77,29 +77,7 @@ export class AnnotableLineChartComponent extends LineChartComponent {
     return this.roundDomains ? scale.nice() : scale;
   }
 
-  onActivate(item) {
-    this.deactivateAll();
 
-    const idx = this.activeEntries.findIndex(d => {
-      return d.name === item.name && d.value === item.value;
-    });
-    if (idx > -1) {
-      return;
-    }
 
-    this.activeEntries = [item];
-    this.activate.emit({ value: item, entries: this.activeEntries });
-  }
-
-  @HostListener('mouseleave')
-  hideCircles(): void {
-
-    this.hoveredVertical = null;
-    this.deactivateAll();
-  }
-  onClickTuple($event, series, serie){
-    console.log(serie)
-
-  }
 }
 

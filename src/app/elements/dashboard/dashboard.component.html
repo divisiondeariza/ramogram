@@ -4,21 +4,20 @@
 			HOY
 		</h2>
 	</div>
-	<app-day-detail [data]="dayData"></app-day-detail>
-	<div class="row">
-		<p>Placeholder</p>
-	</div>
-	<div class="row">
-		<p>Placeholder</p>
-	</div>
-	<div class="row">
-		<p>Placeholder</p>
-	</div>
-	<div class="row">
-		<p>Placeholder</p>
-	</div>
-	<div class="row">
-		<p>Placeholder</p>
+	<app-day-detail [data]="data[0]"></app-day-detail>
+	<div *ngFor="let dayData of data" class="row day">
+		<div class="col-2">
+			{{getWeekday(dayData.date)}}
+		</div>
+		<div class="col-2">
+			<img [src]="getEmojiUrl(dayData.sentiment)"/>
+		</div>
+		<div class="col-4">
+			Personaje
+		</div>
+		<div class="col-4">
+			{{dayData.adjectives[0]}}
+		</div>		
 	</div>
 
 	<div class="row conventions">

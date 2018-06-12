@@ -1,29 +1,11 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-annotations',
-//   templateUrl: './annotations.component.html',
-//   styleUrls: ['./annotations.component.scss']
-// })
-// export class AnnotationsComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit() {
-//   }
-
-// }
-
 import {
   Component,
   Input,
   Output,
-  SimpleChanges,
   EventEmitter,
   OnChanges,
   OnInit,
   ChangeDetectionStrategy,
-  TemplateRef
 } from '@angular/core';
 import {
   trigger,
@@ -39,6 +21,7 @@ import { CircleSeriesComponent } from '@swimlane/ngx-charts/release/common/circl
 @Component({
   selector: 'g[app-annotations]',
   templateUrl: './annotations.component.html',
+  styleUrls: ['./annotations.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('animationState', [
@@ -52,6 +35,7 @@ import { CircleSeriesComponent } from '@swimlane/ngx-charts/release/common/circl
   ]
 })
 export class AnnotationsComponent extends CircleSeriesComponent {
+  @Input() emoji: string;
 
 
 }

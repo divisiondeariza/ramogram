@@ -85,20 +85,22 @@
               />
             </svg:g>
 
-
-              <svg:g *ngFor="let serie of points[1].series" app-annotations
+            <svg:g *ngFor="let series of annotations">
+              <svg:g *ngFor="let serie of series.series" app-annotations
                 [xScale]="xScale"
                 [yScale]="yScale"
                 [colors]="colors"
-                [data]="points[1]"
+                [data]="series"
                 [scaleType]="scaleType"
                 [visibleValue]="serie.name"
+                [emoji]="serie.emoji"
                 [activeEntries]="activeEntries"
                 [tooltipDisabled]="tooltipDisabled"
                 [tooltipTemplate]="tooltipTemplate"
-                (select)="onClickTuple($event, series, serie)"
+                (select)="onClick($event, series)"
               />
             </svg:g>
+          </svg:g>
 
         </svg:g>
       </svg:g>
