@@ -4,7 +4,7 @@ import { MatchData } from './match-data'
 export class DayData {
 	  date: string;
       sentiment: number;
-      character: string;
+      character: {id: string, name: string };
       adjectives: string[];
       match_data?: MatchData;
     }

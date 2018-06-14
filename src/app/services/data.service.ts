@@ -10,6 +10,6 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
    getData ():Observable<any>{
-  	return this.http.get(`http://storage.googleapis.com/optimcol/static/state.json`)
+  	return this.http.get(`//storage.googleapis.com/optimcol/static/state.json`)
   }
 }
