@@ -27,8 +27,11 @@ export class MatchChartComponent implements OnInit {
   annotations: any[];
 
 	activeEntries:any[] = [];
+  referenceLines: any[];
+  xAxisTicks:any[];
+  endOfFirstHalf:string;
+
 	onActivateAndDeactivate() { // keep the highlights on all the time
-	  console.log(this.activeEntries);
 	}
 
   // options
@@ -37,7 +40,7 @@ export class MatchChartComponent implements OnInit {
   gradient = false;
   showLegend = false;
   showXAxisLabel = true;
-  xAxisLabel = 'Country';
+  xAxisLabel = 'Hora';
   showYAxisLabel = true;
   yAxisLabel = 'Population';
 
@@ -53,17 +56,41 @@ export class MatchChartComponent implements OnInit {
   
   onSelect(event) {
   	this.activeEntries.push({name: "2011", value: 8940000, series: "Germany"});
-  	console.log(this.activeEntries)
   }
 
   ngOnInit() {
-    let series = this.matchData.sentiment.map((val, i) => {return {"name": this.matchData.times[i], "value": val}})
+    let series = this.matchData.sentiments.map((val, i) => {return {"name": this.matchData.times[i], "value": val}})
     let annotations = series.map((val) =>{ return {"name": val.name, "value": val.value, "emoji": this.getEmojiUrl(val.value)} })
-                            .filter(val => this.matchData.key_times.first_half == val.name || this.matchData.key_times.second_half == val.name )
+                            .filter(val => val.value == Math.max.apply(null, this.matchData.sentiments) || val.value == Math.min.apply(null, this.matchData.sentiments) )
     this.data = [{"name":"", series: series}]
     this.annotations = [{"name":"", series: annotations}]
+    this.referenceLines  = [
+    { value: 0.1, name: 'Maximum' },
+    { value: 0, name: 'Average' },
+    { value: -0.1, name: 'Minimum' }
+];
 
+    let hourMinutes = this.matchData.key_times.first_half.split(":");
+    let minutesEndFirstHalf:number = parseInt(hourMinutes[0])*60 + parseInt(hourMinutes[1]) + 50
+    this.endOfFirstHalf = Math.floor(minutesEndFirstHalf/60) + ":" + minutesEndFirstHalf%60;
 
+    this.xAxisTicks = [this.matchData.key_times.first_half, this.endOfFirstHalf, this.matchData.key_times.second_half]
+
+  }
+
+  xAxisTickFormatting = this.tickFormatting.bind(this);
+
+  tickFormatting(o:any){
+    if(this.matchData){
+      if(o == this.matchData.key_times.first_half)
+        return "1111 1er tiempo";
+      if(o == this.matchData.key_times.second_half)
+        return "2do tiempo";
+      if(o == this.endOfFirstHalf)
+        return "entretiempo";
+
+    }
+    return o;
   }
 
   private getEmojiUrl(sentiment){

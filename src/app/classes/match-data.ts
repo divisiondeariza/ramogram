@@ -1,7 +1,7 @@
 export class MatchData {
     title: string;
     times: string[];
-    sentiment: number[];
+    sentiments: number[];
     key_times: KeyTimes;
   }
 

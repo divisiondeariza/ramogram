@@ -48,7 +48,7 @@ import { LineChartComponent } from '@swimlane/ngx-charts/release/line-chart';
 @Component({
   selector: 'ngx-charts-sparkline',
   templateUrl: './annotable-line-chart.component.html',
-  styleUrls: ['base-chart.component.css'],
+  styleUrls: ['base-chart.component.css', 'annotable-line-chart.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
@@ -77,6 +77,16 @@ export class AnnotableLineChartComponent extends LineChartComponent {
     return this.roundDomains ? scale.nice() : scale;
   }
 
+  ngAfterViewInit() {  
+    for(let element of this.chartElement.nativeElement.getElementsByClassName('x axis')[0].getElementsByTagName('text')){
+      console.log(element)
+      element.style["text-anchor"] = 'left'
+      element.style.color = 'red'
+      element.style.width = '100%'
+  }
+
+
+  }
 
 
 }

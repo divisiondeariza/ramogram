@@ -65,3 +65,9 @@
     fill: none; }
   .ngx-charts .grid-panel.odd rect {
     fill: rgba(0, 0, 0, 0.05); }
+
+
+.ngx-charts {
+float: right !important;
+position: relative !important;
+}
