@@ -68,12 +68,15 @@ export class MatchChartComponent implements OnInit {
     { value: 0.1, name: 'Maximum' },
     { value: 0, name: 'Average' },
     { value: -0.1, name: 'Minimum' }
-];
+    ];
+
+
+
 
     let hourMinutes = this.matchData.key_times.first_half.split(":");
     let minutesEndFirstHalf:number = parseInt(hourMinutes[0])*60 + parseInt(hourMinutes[1]) + 50
-    this.endOfFirstHalf = Math.floor(minutesEndFirstHalf/60) + ":" + minutesEndFirstHalf%60;
-
+    this.endOfFirstHalf = this.zeroPadding(Math.floor(minutesEndFirstHalf/60), 2) + ":" + this.zeroPadding(minutesEndFirstHalf%60,0);
+    console.log(this.endOfFirstHalf);
     this.xAxisTicks = [this.matchData.key_times.first_half, this.endOfFirstHalf, this.matchData.key_times.second_half]
 
   }
@@ -96,6 +99,12 @@ export class MatchChartComponent implements OnInit {
   private getEmojiUrl(sentiment){
     let emojiFilename = this.sentimentToEmojiService.getEmoji(sentiment);
     return 'assets/img/emojis/' + emojiFilename;
+  }
+
+  private zeroPadding(number, size) {
+    var s = String(number);
+    while (s.length < (size || 2)) {s = "0" + s;}
+    return s;
   }
 
 
