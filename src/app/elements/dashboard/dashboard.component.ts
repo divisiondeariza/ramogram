@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { DayData } from '../../classes/day-data'
 import { SentimentToEmojiService } from '../../services/sentiment-to-emoji.service'
 import { DataService } from '../../services/data.service'
+import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 import * as moment from 'moment-timezone';
 
 @Component({
@@ -32,6 +33,13 @@ export class DashboardComponent implements OnInit {
   this.dataService.getData()
     .subscribe(data => this.data = data);
   
+    IntervalObservable.create(10000)
+    .subscribe(() => {
+      this.dataService.getData()
+        .subscribe(data => {
+          this.data = data;
+        });
+    });
 
   }
 
